@@ -9,7 +9,7 @@ describe ApiConstraints do
 
     it "returns true when the version matches the 'Accept' header" do
       request = double(host: 'api.marketplace.dev',
-                       headers: {"Accept" => "application/vnd.marketplace.v1"})
+                       headers: {"Accept" => "application/v1"})
       expect(api_constraints_v1.matches?(request)).to be_truthy
     end
 
@@ -20,7 +20,7 @@ describe ApiConstraints do
 
     it "returns false when the version does not match the 'Accept' header" do
       request = double(host: 'api.marketplace.dev',
-                       headers: {"Accept" => "application/vnd.marketplace.v2"})
+                       headers: {"Accept" => "application/v2"})
       expect(api_constraints_v1.matches?(request)).to_not be_truthy
     end
   end
