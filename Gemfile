@@ -45,6 +45,7 @@ group :test do
   gem 'rspec-rails', '~> 3.5'
   gem "factory_girl_rails"
   gem 'ffaker'
+  gem 'shoulda-matchers', '~> 3.0'
 end
 
 group :production do
