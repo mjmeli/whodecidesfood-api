@@ -20,6 +20,9 @@ gem 'jquery-rails'
 # API gems
 gem 'active_model_serializers'
 
+# Authentication using devise
+gem 'devise'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
