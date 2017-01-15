@@ -59,6 +59,12 @@ RSpec.configure do |config|
   # Needed for rspec to work with devise
   config.include Devise::Test::ControllerHelpers, type: :controller
 
-  # Including to test requests
+  # Include the request_helpers.rb modules
   config.include Request::JsonHelpers, :type => :controller
+  config.include Request::HeadersHelpers, :type => :controller
+
+  # Include the default accept headers before all requests in tests
+  config.before(:each, type: :controller) do
+    include_default_accept_headers
+  end
 end
