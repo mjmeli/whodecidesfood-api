@@ -19,4 +19,22 @@ describe Authenticable, :type => :controller do
       expect(authentication.current_user.auth_token).to eql @user.auth_token
     end
   end
+
+  describe "#authenticate_with_token" do
+    before do
+      @user = FactoryGirl.create :user
+      allow(authentication).to receive(:current_user).and_return(nil)
+      allow(authentication).to receive(:render) do |args|
+        args
+      end
+    end
+
+    it 'returns error' do
+      expect(authentication.authenticate_with_token![:json][:errors]).to eq 'Not authenticated'
+    end
+
+    it 'returns unauthorized status' do
+      expect(authentication.authenticate_with_token![:status]).to eq :unauthorized
+    end
+  end
 end
