@@ -56,6 +56,11 @@ Install gems
 
     bundle install --without production
 
-Install `rspec`
+## Development
+To start the server
 
-    rails g rspec:install
+    rails server
+
+To run tests
+
+    rspec
