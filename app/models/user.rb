@@ -8,7 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   # Create unique authentication token before created
-  before_create :generate_authentication_token!
+  before_validation :generate_authentication_token!
 
   def generate_authentication_token!
    begin
