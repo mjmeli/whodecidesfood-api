@@ -5,8 +5,10 @@ RSpec.describe Comparison, type: :model do
   subject { comparison }
 
   it { should respond_to(:title) }
-  it { should respond_to(:owner) }
+  it { should respond_to(:owner_id) }
 
   it { should validate_presence_of :title }
-  it { should validate_presence_of :owner }
+  it { should validate_presence_of :owner_id }
+
+  it { should belong_to :owner }
 end

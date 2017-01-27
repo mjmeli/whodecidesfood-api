@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :comparison do
     title { FFaker::Lorem.sentence }
-    owner 1
+    association :owner, :factory => :user
   end
 end

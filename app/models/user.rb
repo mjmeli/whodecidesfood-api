@@ -10,6 +10,9 @@ class User < ApplicationRecord
   # Create unique authentication token before created
   before_validation :generate_authentication_token!
 
+  # A user can own comparisons
+  has_many :comparisons, foreign_key: 'owner_id', dependent: :destroy
+
   def generate_authentication_token!
    begin
      self.auth_token = Devise.friendly_token

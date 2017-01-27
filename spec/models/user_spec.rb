@@ -12,6 +12,8 @@ RSpec.describe User, type: :model do
 
   it { should be_valid }
 
+  it { should have_many(:comparisons).with_foreign_key('owner_id') }
+
   # Test validations, should be provided by devise
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email).case_insensitive }
@@ -31,6 +33,22 @@ RSpec.describe User, type: :model do
       existing_user = FactoryGirl.create(:user, auth_token: "auniquetoken123")
       @user.generate_authentication_token!
       expect(@user.auth_token).not_to eql existing_user.auth_token
+    end
+  end
+
+  # Test dependency destroy of comparisons when a user is deleted
+  describe "#comparisons association" do
+    before do
+      @user.save
+      3.times { FactoryGirl.create :comparison, owner: @user }
+    end
+
+    it "destroys the associated comparisons on self destruct" do
+      comparisons = @user.comparisons
+      @user.destroy
+      comparisons.each do |comparison|
+        expect(Comparison.find(comparison.id)).to raise_error ActiveRecord::RecordNotFound
+      end
     end
   end
 end

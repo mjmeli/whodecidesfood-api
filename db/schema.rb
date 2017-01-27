@@ -14,10 +14,10 @@ ActiveRecord::Schema.define(version: 20170127221507) do
 
   create_table "comparisons", force: :cascade do |t|
     t.string   "title",      default: ""
-    t.integer  "owner"
+    t.integer  "owner_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.index ["owner"], name: "index_comparisons_on_owner"
+    t.index ["owner_id"], name: "index_comparisons_on_owner_id"
   end
 
   create_table "users", force: :cascade do |t|
