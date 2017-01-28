@@ -25,22 +25,45 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
   describe "GET #index" do
     before(:each) do
       4.times { FactoryGirl.create :comparison }
-      get :index
     end
 
-    it "returns 4 records from the database" do
-      comparison_response = json_response
-      expect(comparison_response.length).to eq(4)
-    end
-
-    it "returns the user object into each product" do
-      comparison_response = json_response
-      comparison_response.each do |cr|
-        expect(cr[:owner]).to be_present
+    context "when does not receive the comparison_id parameter" do
+      before(:each) do
+        get :index
       end
+
+      it "returns 4 records from the database" do
+        comparison_response = json_response
+        expect(comparison_response.length).to eq(4)
+      end
+
+      it "returns the user object into each product" do
+        comparison_response = json_response
+        comparison_response.each do |cr|
+          expect(cr[:owner]).to be_present
+        end
+      end
+
+      it { should respond_with 200 }
     end
 
-    it { should respond_with 200 }
+    context "when receives the comparison_id parameter" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        3.times { FactoryGirl.create :comparison, owner: @user }
+        get :index, params: { comparison_ids: @user.comparison_ids }
+      end
+
+      it "returns just the comparisons specified" do
+        comparison_response = json_response
+        expect(comparison_response.length).to eq(3)
+        comparison_response.each do |cr|
+          expect(cr[:owner][:email]).to eql @user.email
+        end
+      end
+
+      it { should respond_with 200 }
+    end
   end
 
   # CREATE
