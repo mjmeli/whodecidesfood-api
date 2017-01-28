@@ -13,6 +13,11 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
       expect(comparison_response[:title]).to eql @comparison.title
     end
 
+    it "has the owner as an embedded object" do
+      comparison_response = json_response
+      expect(comparison_response[:owner][:email]).to eql @comparison.owner.email
+    end
+
     it { should respond_with 200 }
   end
 
@@ -26,6 +31,13 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
     it "returns 4 records from the database" do
       comparison_response = json_response
       expect(comparison_response.length).to eq(4)
+    end
+
+    it "returns the user object into each product" do
+      comparison_response = json_response
+      comparison_response.each do |cr|
+        expect(cr[:owner]).to be_present
+      end
     end
 
     it { should respond_with 200 }
