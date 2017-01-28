@@ -30,6 +30,9 @@ group :development, :test do
   gem 'sqlite3', '1.3.12'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  # Used for tests and for seeding
+  gem 'ffaker'
+  gem "factory_girl_rails"
 end
 
 group :development do
@@ -43,8 +46,6 @@ end
 
 group :test do
   gem 'rspec-rails', '~> 3.5'
-  gem "factory_girl_rails"
-  gem 'ffaker'
   gem 'shoulda-matchers', '~> 3.0'
 end
 

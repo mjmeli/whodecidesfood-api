@@ -64,3 +64,8 @@ To start the server
 To run tests
 
     rspec
+
+Clearing and seeding database
+
+    db:migrate:reset
+    db:seed
