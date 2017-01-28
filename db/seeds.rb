@@ -5,5 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-10.times { FactoryGirl.create :comparison }
-4.times { FactoryGirl.create :user }
+case Rails.env
+when "development"
+  10.times { FactoryGirl.create :comparison }
+  4.times { FactoryGirl.create :user }
+end
