@@ -74,4 +74,47 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
       it { should respond_with 422 }
     end
   end
+
+  # UPDATE
+  describe "PUT/PATCH #update" do
+    before(:each) do
+      @comparison = FactoryGirl.create :comparison
+      @participant = FactoryGirl.create :participant, comparison: @comparison
+    end
+
+    context "when is successfully updated" do
+      before(:each) do
+        patch :update, params: { comparison_id: @comparison.id,
+                                 id: @participant.id,
+                                 participant: { name: "New Name" } }
+      end
+
+      it "renders the json representation for the updated participant" do
+        participants_response = json_response
+        expect(participants_response[:name]).to eql "New Name"
+      end
+
+      it { should respond_with 200 }
+    end
+
+    context "when is not updated" do
+      before(:each) do
+        patch :update, params: { comparison_id: @comparison.id,
+                                 id: @participant.id,
+                                 participant: { name: "" } }
+      end
+
+      it "renders an errors json" do
+        participants_response = json_response
+        expect(participants_response).to have_key(:errors)
+      end
+
+      it "renders the json errors on why the participant could not be created" do
+        participants_response = json_response
+        expect(participants_response[:errors][:name]).to include "can't be blank"
+      end
+
+      it { should respond_with 422 }
+    end
+  end
 end

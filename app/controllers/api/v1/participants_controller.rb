@@ -19,6 +19,15 @@ class Api::V1::ParticipantsController < ApplicationController
     end
   end
 
+  def update
+    participant = current_comparison.participants.find(params[:id])
+    if participant.update(participant_params)
+      render json: participant, status: 200, location: [:api, current_comparison, participant]
+    else
+      render json: { errors: participant.errors }, status: 422
+    end
+  end
+
   private
 
     def current_comparison
