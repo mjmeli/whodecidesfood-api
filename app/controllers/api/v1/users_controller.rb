@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   before_action :authenticate_with_token!, only: [:update, :destroy]
+  before_action :authenticate_with_token!, only: [:show], if: :production?
   respond_to :json
 
   def show
@@ -33,5 +34,9 @@ class Api::V1::UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation)
+    end
+
+    def production?
+      Rails.env == "production"
     end
 end
