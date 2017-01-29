@@ -12,6 +12,8 @@ RSpec.describe Comparison, type: :model do
 
   it { should belong_to :owner }
 
+  it { should have_many :participants }
+
   # testing sorting by creation date functionality
   describe ".recent" do
     before(:each) do

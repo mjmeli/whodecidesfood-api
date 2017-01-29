@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170127221507) do
+ActiveRecord::Schema.define(version: 20170129201906) do
 
   create_table "comparisons", force: :cascade do |t|
     t.string   "title",      default: ""
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 20170127221507) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.index ["owner_id"], name: "index_comparisons_on_owner_id"
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.integer  "comparison_id"
+    t.string   "name"
+    t.integer  "score"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["comparison_id"], name: "index_participants_on_comparison_id"
   end
 
   create_table "users", force: :cascade do |t|
