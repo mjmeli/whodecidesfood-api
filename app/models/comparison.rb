@@ -3,7 +3,7 @@ class Comparison < ApplicationRecord
 
   belongs_to :owner, :class_name => 'User'
 
-  has_many :participants
+  has_many :participants, dependent: :destroy
 
   scope :recent, -> {
     order(:updated_at)
