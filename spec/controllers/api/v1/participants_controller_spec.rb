@@ -117,4 +117,15 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
       it { should respond_with 422 }
     end
   end
+
+  # DESTROY
+  describe "DELETE #destroy" do
+    before(:each) do
+      @comparison = FactoryGirl.create :comparison
+      @participant = FactoryGirl.create :participant, comparison: @comparison
+      delete :destroy, params: { comparison_id: @comparison.id, id: @participant.id }
+    end
+
+    it { should respond_with 204 }
+  end
 end

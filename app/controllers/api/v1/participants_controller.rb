@@ -28,6 +28,12 @@ class Api::V1::ParticipantsController < ApplicationController
     end
   end
 
+  def destroy
+    participant = current_comparison.participants.find(params[:id])
+    participant.destroy
+    head 204
+  end
+
   private
 
     def current_comparison
