@@ -37,10 +37,13 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
         expect(comparison_response.length).to eq(4)
       end
 
-      it "returns the user object into each product" do
+      it "returns the user object into each product with id and email only" do
         comparison_response = json_response
         comparison_response.each do |cr|
           expect(cr[:owner]).to be_present
+          expect(cr[:owner][:id]).to be_present
+          expect(cr[:owner][:email]).to be_present
+          expect(cr[:owner][:auth_token]).to_not be_present
         end
       end
 
