@@ -4,14 +4,15 @@ class Api::V1::ComparisonsController < ApplicationController
   respond_to :json
 
   def index
-    # Return all comparisons unless the comparison_ids parameter is sent
+    # Return all comparisons for user unless the comparison_ids parameter is sent
     comparisons = params[:comparison_ids].present? ?
-                  Comparison.find(params[:comparison_ids]) : Comparison.all
+                  current_user.comparisons.find(params[:comparison_ids]) :
+                  current_user.comparisons.all
     respond_with comparisons
   end
 
   def show
-    respond_with Comparison.find(params[:id])
+    respond_with current_user.comparisons.find(params[:id])
   end
 
   def create
