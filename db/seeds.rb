@@ -7,6 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 case Rails.env
 when "development"
-  10.times { FactoryGirl.create :comparison }
-  4.times { FactoryGirl.create :user }
+  # Users with comparisons
+  5.times do
+    user = FactoryGirl.create :user
+    3.times { FactoryGirl.create :comparison, owner: user }
+  end
+
+  # Users with no comparisons
+  3.times { FactoryGirl.create :user }
 end
