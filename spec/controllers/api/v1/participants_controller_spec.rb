@@ -34,4 +34,22 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
 
     it { should respond_with 200 }
   end
+
+  # CREATE
+  describe "POST #create" do
+    before(:each) do
+      comparison = FactoryGirl.create :comparison
+      participant_params = { name: "Fake Name" }
+      post :create, params: { comparison_id: comparison.id, participant: participant_params }
+    end
+
+    it "returns the just participant record" do
+      participants_response = json_response
+      expect(participants_response[:id]).to be_present
+      expect(participants_response[:name]).to eql("Fake Name")
+      expect(participants_response[:score]).to eql(0)
+    end
+
+    it { should respond_with 201 }
+  end
 end
