@@ -10,7 +10,12 @@ when "development"
   # Users with comparisons
   5.times do
     user = FactoryGirl.create :user
-    3.times { FactoryGirl.create :comparison, owner: user }
+
+    # Create comparisons with participants
+    3.times do
+      comparison = FactoryGirl.create :comparison, owner: user
+      2.times { FactoryGirl.create :participant, comparison: comparison }
+    end
   end
 
   # Users with no comparisons
