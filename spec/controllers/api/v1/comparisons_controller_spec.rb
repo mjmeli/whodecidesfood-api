@@ -1,10 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ComparisonsController, type: :controller do
+  before(:each) do
+    @user = FactoryGirl.create :user
+    api_authorization_header @user.auth_token
+  end
+
   # SHOW
   describe "GET #show" do
     before(:each) do
-      @comparison = FactoryGirl.create :comparison
+      @comparison = FactoryGirl.create :comparison, owner: @user
       get :show, params: { id: @comparison.id }
     end
 
@@ -24,7 +29,7 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
   # INDEX
   describe "GET #index" do
     before(:each) do
-      4.times { FactoryGirl.create :comparison }
+      4.times { FactoryGirl.create :comparison, owner: @user }
     end
 
     context "when does not receive the comparison_id parameter" do
@@ -52,14 +57,14 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
 
     context "when receives the comparison_id parameter" do
       before(:each) do
-        @user = FactoryGirl.create :user
+        original_comparison_ids = @user.comparison_ids
         3.times { FactoryGirl.create :comparison, owner: @user }
-        get :index, params: { comparison_ids: @user.comparison_ids }
+        get :index, params: { comparison_ids: original_comparison_ids }
       end
 
       it "returns just the comparisons specified" do
         comparison_response = json_response
-        expect(comparison_response.length).to eq(3)
+        expect(comparison_response.length).to eq(4)
         comparison_response.each do |cr|
           expect(cr[:owner][:email]).to eql @user.email
         end
@@ -73,10 +78,8 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
   describe "POST #create" do
     context "when is successfully created" do
       before(:each) do
-        user = FactoryGirl.create :user
         @comparison_attributes = FactoryGirl.attributes_for :comparison
-        api_authorization_header user.auth_token
-        post :create, params: { user_id: user.id, comparison: @comparison_attributes}
+        post :create, params: { user_id: @user.id, comparison: @comparison_attributes}
       end
 
       it "renders the json representation for the comparison record just created" do
@@ -89,10 +92,8 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
 
     context "when is not successfully created" do
       before(:each) do
-        user = FactoryGirl.create :user
         @invalid_comparison_attributes = { title: "" }
-        api_authorization_header user.auth_token
-        post :create, params: { user_id: user.id, comparison: @invalid_comparison_attributes}
+        post :create, params: { user_id: @user.id, comparison: @invalid_comparison_attributes}
       end
 
       it "renders an errors json" do
@@ -112,9 +113,7 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
   # UPDATE
   describe "PUT/PATCH #update" do
     before(:each) do
-      @user = FactoryGirl.create :user
       @comparison = FactoryGirl.create :comparison, owner: @user
-      api_authorization_header @user.auth_token
     end
 
     context "when is successfully updated" do
@@ -154,9 +153,7 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
   # DELETE
   describe "DELETE #destroy" do
     before(:each) do
-      @user = FactoryGirl.create :user
       @comparison = FactoryGirl.create :comparison, owner: @user
-      api_authorization_header @user.auth_token
       delete :destroy, params: { user_id: @user.id, id: @comparison.id }
     end
 

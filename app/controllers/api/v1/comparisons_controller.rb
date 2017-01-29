@@ -1,5 +1,5 @@
 class Api::V1::ComparisonsController < ApplicationController
-  before_action :authenticate_with_token!, only: [:create]
+  before_action :authenticate_with_token!
 
   respond_to :json
 
