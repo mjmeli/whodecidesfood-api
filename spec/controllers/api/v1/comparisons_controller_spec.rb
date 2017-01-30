@@ -23,6 +23,11 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
       expect(comparison_response[:owner][:email]).to eql @comparison.owner.email
     end
 
+    skip "has the decision ids as an embedded object" do
+      user_response = json_response
+      expect(user_response[:decision_ids]).to eql []
+    end
+
     it { should respond_with 200 }
   end
 
