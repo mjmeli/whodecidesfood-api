@@ -5,8 +5,12 @@ class ApplicationController < ActionController::Base
 
   include Authenticable
 
-  rescue_from StandardError do |exception|
-    raise unless request.format.json?
-    render json: { :error => exception.message }, :status => 500
-  end
+  # rescue_from StandardError do |exception|
+  #   raise unless request.format.json?
+  #   render json: { :error => exception.message }, :status => 500
+  # end
+  #
+  # rescue_from ActiveRecord::RecordNotFound do
+  #   render json: { :error => "" }
+  # end
 end
