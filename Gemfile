@@ -23,6 +23,9 @@ gem 'active_model_serializers'
 # Authentication using devise
 gem 'devise'
 
+# API documentation generation
+gem 'apipie-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
