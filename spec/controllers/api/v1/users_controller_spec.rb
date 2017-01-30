@@ -1,6 +1,49 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
+
+  # INDEX
+  describe "GET #index" do
+    before(:each) do
+      4.times { FactoryGirl.create :user }
+    end
+
+    context "user is authenticated" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        api_authorization_header @user.auth_token
+        get :index
+      end
+
+      it "returns only the current user" do
+        user_response = json_response
+        expect(user_response).to have_key(:email)
+        expect(user_response[:email]).to eql(@user.email)
+      end
+
+      it { should respond_with 200 }
+    end
+
+    context "user is not authenticated" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        get :index
+      end
+
+      it "renders an errors json" do
+        user_response = json_response
+        expect(user_response).to have_key(:errors)
+      end
+
+      it "renders the json errors on why the user could not be created" do
+        user_response = json_response
+        expect(user_response[:errors]).to include "Not authenticated"
+      end
+
+      it { should respond_with 401 }
+    end
+  end
+
   describe "GET #show" do
     before(:each) do
       @user = FactoryGirl.create :user

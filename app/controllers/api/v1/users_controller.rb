@@ -3,6 +3,11 @@ class Api::V1::UsersController < ApplicationController
   before_action :authenticate_with_token!, only: [:show], if: :production?
   respond_to :json
 
+  def index
+    # Call authentication manually
+    respond_with current_user unless authenticate_with_token!
+  end
+
   def show
     respond_with User.find_by_id(params[:id])
   end
