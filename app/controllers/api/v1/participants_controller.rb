@@ -1,4 +1,5 @@
 class Api::V1::ParticipantsController < ApplicationController
+  before_action :authenticate_with_token!
   respond_to :json
 
   def index
@@ -37,7 +38,7 @@ class Api::V1::ParticipantsController < ApplicationController
   private
 
     def current_comparison
-      @current_comparison ||= Comparison.find(params[:comparison_id])
+      @current_comparison ||= current_user.comparisons.find(params[:comparison_id])
     end
 
     def participant_params
