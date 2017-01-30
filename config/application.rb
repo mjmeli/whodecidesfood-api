@@ -33,5 +33,8 @@ module WhodecidesfoodApi
     end
 
     config.autoload_paths += %W(\#{config.root}/lib)
+
+    # Admin auth token.
+    config.auth_token = ENV['ADMIN_ACCESS_TOKEN'] || SecureRandom.hex
   end
 end
