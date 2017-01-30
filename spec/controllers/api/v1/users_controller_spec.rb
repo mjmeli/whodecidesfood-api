@@ -44,30 +44,75 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
+  # SHOW
   describe "GET #show" do
-    before(:each) do
-      @user = FactoryGirl.create :user
-      get :show, params: { id: @user.id }
+    context "user is authenticated" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        api_authorization_header @user.auth_token
+        get :show, params: { id: @user.id }
+      end
+
+      it "returns the information about a reporter on a hash" do
+        user_response = json_response
+        expect(user_response[:email]).to eql @user.email
+      end
+
+      it "has the comparison ids as an embedded object" do
+        user_response = json_response
+        expect(user_response[:comparison_ids]).to eql []
+      end
+
+      it { should respond_with 200 }
     end
 
-    it "returns the information about a reporter on a hash" do
-      user_response = json_response
-      expect(user_response[:email]).to eql @user.email
+    context "user is not authenticated" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        get :show, params: { id: @user.id }
+      end
+
+      it "renders an errors json" do
+        user_response = json_response
+        expect(user_response).to have_key(:errors)
+      end
+
+      it "renders the json errors on why the user couldn't be shown" do
+        user_response = json_response
+        expect(user_response[:errors]).to include "Not authenticated"
+      end
+
+      it { should respond_with 401 }
     end
 
-    it "has the comparison ids as an embedded object" do
-      user_response = json_response
-      expect(user_response[:comparison_ids]).to eql []
-    end
+    context "user is authenticated with the wrong user" do
+      before(:each) do
+        @user1 = FactoryGirl.create :user
+        @user2 = FactoryGirl.create :user
+        api_authorization_header @user1.auth_token
+        get :show, params: { id: @user2.id }
+      end
 
-    it { should respond_with 200 }
+      it "renders an errors json" do
+        user_response = json_response
+        expect(user_response).to have_key(:errors)
+      end
+
+      it "renders the json errors on why the user couldn't be shown" do
+        user_response = json_response
+        expect(user_response[:errors]).to include "Not authorized"
+      end
+
+      it { should respond_with 401 }
+    end
   end
 
+  # CREATE
   describe "POST #create" do
     context "when is successfully created" do
       before(:each) do
         @user_attributes = FactoryGirl.attributes_for :user
-        post :create, params: { user: @user_attributes}
+        post :create, params: { user: @user_attributes }
       end
 
       it "renders the json representation for the user record just created" do

@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authenticate_with_token!, only: [:update, :destroy]
-  before_action :authenticate_with_token!, only: [:show], if: :production?
+  before_action :authenticate_with_token!, only: [:index, :update, :destroy]
+  before_action :authenticate_with_token!, only: [:show], if_not: :development?
   respond_to :json
 
   def index
@@ -9,7 +9,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    respond_with User.find_by_id(params[:id])
+    # On non-development environments, only show the user if the ids match
+    if development? || current_user_matches_id?(params[:id])
+      respond_with User.find_by_id(params[:id])
+    else
+      render json: { errors: "Not authorized" }, status: :unauthorized
+    end
   end
 
   def create
@@ -41,7 +46,11 @@ class Api::V1::UsersController < ApplicationController
       params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
-    def production?
-      Rails.env == "production"
+    def current_user_matches_id?(id)
+      current_user.present? && current_user.id == params[:id].to_i
+    end
+
+    def development?
+      Rails.env == "development"
     end
 end
