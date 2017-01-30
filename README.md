@@ -1,6 +1,7 @@
 # whodecidesfood-api
+[![Build Status](https://travis-ci.org/mjmeli/whodecidesfood-api.svg?branch=master)](https://travis-ci.org/mjmeli/whodecidesfood-api)
 
-REST API for application. README WIP.
+REST API for application. README work-in-progress. API documentation coming soon.
 
 ## Team
 * Michael Meli
