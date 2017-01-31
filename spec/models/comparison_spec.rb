@@ -13,6 +13,7 @@ RSpec.describe Comparison, type: :model do
   it { should belong_to :owner }
 
   it { should have_many :participants }
+  it { should have_many :decisions }
 
   # testing sorting by creation date functionality
   describe ".recent" do

@@ -15,6 +15,7 @@ when "development"
     3.times do
       comparison = FactoryGirl.create :comparison, owner: user
       2.times { FactoryGirl.create :participant, comparison: comparison }
+      5.times { FactoryGirl.create :decision, comparison: comparison }
     end
   end
 

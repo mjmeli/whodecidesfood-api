@@ -37,6 +37,11 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
       expect(participants_response[:name]).to eql @participant.name
     end
 
+    skip "has the decision ids as an embedded object" do
+      user_response = json_response
+      expect(user_response[:decision_ids]).to eql []
+    end
+
     it { should respond_with 200 }
   end
 
