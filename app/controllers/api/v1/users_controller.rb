@@ -3,10 +3,8 @@ class Api::V1::UsersController < ApplicationController
   before_action :authenticate_with_token!, only: [:show], if_not: :admin_signed_in?
   respond_to :json
 
-  include ApipieDefinitions
+  include UsersControllerDoc
 
-  api :GET, "/users", "Get user information for current user"
-  header "Authorization", "Session authentication token for the user", :required => true
   def index
     # Return the current user unless admin access
     if admin_signed_in?
@@ -16,10 +14,6 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  api :GET, "/users/:id", "Get user information by ID"
-  header "Authorization", "Session authentication token for the user", :required => true
-  param :id, :number, :desc => "User ID", :required => true
-  error 401, "Trying to access a different user than authorized"
   def show
     # When no admin access, only show the user if the ids match
     if admin_signed_in? || current_user_matches_id?(params[:id])
@@ -29,9 +23,6 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  api :POST, "/users", "Create a new user"
-  param_group :user
-  error 422, "Unable to create the user (probably due to validation issues)"
   def create
     user = User.new(user_params)
     if user.save
@@ -41,10 +32,6 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  api :PATCH, "/users/:id", "Update an existing user"
-  header "Authorization", "Session authentication token for the user", :required => true
-  param_group :user
-  error 422, "Unable to update the user (probably due to validation issues)"
   def update
     user = current_user
     if user.update(user_params)
@@ -54,9 +41,6 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  api :DELETE, "/users/:id", "Delete an existing user"
-  header "Authorization", "Session authentication token for the user", :required => true
-  param :id, :number, :desc => "User ID", :required => true
   def destroy
     current_user.destroy
     head 204
@@ -70,9 +54,5 @@ class Api::V1::UsersController < ApplicationController
 
     def current_user_matches_id?(id)
       current_user.present? && current_user.id == params[:id].to_i
-    end
-
-    resource_description do
-      formats ['json']
     end
 end
