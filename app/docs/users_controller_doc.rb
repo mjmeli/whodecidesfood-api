@@ -11,6 +11,7 @@ if Rails.env.development?
 
     api :GET, "/users", "Get user information for current user"
     header "Authorization", "Session authentication token for the user", :required => true
+    error 401, "Unauthorized"
     def show
       # Stub
     end
@@ -18,13 +19,13 @@ if Rails.env.development?
     api :GET, "/users/:id", "Get user information by ID"
     header "Authorization", "Session authentication token for the user", :required => true
     param :id, :number, :desc => "User ID", :required => true
-    error 401, "Trying to access a different user than authorized"
+    error 401, "Unauthorized"
     def show
       # Stub
     end
 
     api :POST, "/users", "Create a new user"
-    # param_group :user
+    param_group :user
     error 422, "Unable to create the user (probably due to validation issues)"
     def create
       # Stub
@@ -32,7 +33,8 @@ if Rails.env.development?
 
     api :PATCH, "/users/:id", "Update an existing user"
     header "Authorization", "Session authentication token for the user", :required => true
-    # param_group :user
+    param_group :user
+    error 401, "Unauthorized"
     error 422, "Unable to update the user (probably due to validation issues)"
     def update
       # Stub
@@ -41,6 +43,7 @@ if Rails.env.development?
     api :DELETE, "/users/:id", "Delete an existing user"
     header "Authorization", "Session authentication token for the user", :required => true
     param :id, :number, :desc => "User ID", :required => true
+    error 401, "Unauthorized"
     def destroy
       # Stub
     end

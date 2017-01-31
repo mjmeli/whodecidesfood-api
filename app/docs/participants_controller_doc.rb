@@ -9,6 +9,7 @@ if Rails.env.development?
 
     api :GET, "/comparisons/:id/participants/", "Get all participants information for a comparison"
     header "Authorization", "Session authentication token for the user", :required => true
+    error 401, "Unauthorized"
     def index
       # Stub
     end
@@ -17,14 +18,17 @@ if Rails.env.development?
     header "Authorization", "Session authentication token for the user", :required => true
     param :comparison_id, :number, :desc => "Comparison ID"
     param :id, :number, :desc => "Participant ID", :required => true
-    error 404, "Trying to access a participant that you don't have access to"
+    error 401, "Unauthorized"
+    error 404, "Participant does not exist"
     def show
       # Stub
     end
 
     api :POST, "/comparisons/:comparison_id/participants", "Create a new participant for a comparison"
+    header "Authorization", "Session authentication token for the user", :required => true
     param :comparison_id, :number, :desc => "Comparison ID"
     param_group :participant
+    error 401, "Unauthorized"
     error 422, "Unable to create the participant (probably due to validation issues)"
     def create
       # Stub
@@ -34,6 +38,7 @@ if Rails.env.development?
     header "Authorization", "Session authentication token for the user", :required => true
     param :comparison_id, :number, :desc => "Comparison ID"
     param_group :participant
+    error 401, "Unauthorized"
     error 422, "Unable to update the participant (probably due to validation issues)"
     def update
       # Stub
@@ -43,6 +48,7 @@ if Rails.env.development?
     header "Authorization", "Session authentication token for the user", :required => true
     param :comparison_id, :number, :desc => "Comparison ID"
     param :id, :number, :desc => "User ID", :required => true
+    error 401, "Unauthorized"
     def destroy
       # Stub
     end
