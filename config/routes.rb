@@ -1,7 +1,6 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
-  apipie
   devise_for :users
   # API definition
   namespace :api, defaults: { format: :json }, path: '/api/' do
@@ -13,5 +12,10 @@ Rails.application.routes.draw do
         resources :participants, :only => [:index, :show, :create, :update, :destroy]
       end
     end
+  end
+
+  # apipie on development only
+  if Rails.env.development?
+    apipie
   end
 end
