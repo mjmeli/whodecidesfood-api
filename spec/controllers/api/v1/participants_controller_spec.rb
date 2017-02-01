@@ -76,7 +76,7 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
         expect(participants_response).to have_key(:errors)
       end
 
-      it "renders the json errors on why the comparison could not be created" do
+      it "renders the json errors on why the participant could not be created" do
         participants_response = json_response
         expect(participants_response[:errors][:name]).to include "can't be blank"
       end
