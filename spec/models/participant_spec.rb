@@ -14,5 +14,5 @@ RSpec.describe Participant, type: :model do
   it { should validate_presence_of :comparison_id }
 
   it { should belong_to :comparison }
-  it { should have_many(:decisions).through(:comparison) }
+  it { should have_many(:decisions) }
 end
