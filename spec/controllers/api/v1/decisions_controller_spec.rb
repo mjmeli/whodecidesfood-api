@@ -2,7 +2,7 @@ require 'rails_helper'
 
 # TODO: search TODO in this file
 
-# RSpec.describe Api::V1::DecisionsController, type: :controller do
+RSpec.describe Api::V1::DecisionsController, type: :controller do
   # before(:each) do
   #   @user = FactoryGirl.create :user
   #   api_authorization_header @user.auth_token
@@ -144,4 +144,4 @@ require 'rails_helper'
   #
   #   it { should respond_with 204 }
   # end
-# end
+end
