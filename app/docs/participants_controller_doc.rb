@@ -10,6 +10,17 @@ if Rails.env.development?
     api :GET, "/comparisons/:id/participants/", "Get all participants information for a comparison"
     header "Authorization", "Session authentication token for the user", :required => true
     error 401, "Unauthorized"
+    example '[{
+  "id": 1,
+  "name": "Rosalia Schultz",
+  "score": 42,
+  "decision_ids": [1, 2, 3, 4, 5]
+}, {
+  "id": 2,
+  "name": "Brinda Adams",
+  "score": 71,
+  "decision_ids": [4, 5]
+}]'
     def index
       # Stub
     end
@@ -20,6 +31,12 @@ if Rails.env.development?
     param :id, :number, :desc => "Participant ID", :required => true
     error 401, "Unauthorized"
     error 404, "Participant does not exist"
+    example '{
+  "id": 1,
+  "name": "Rosalia Schultz",
+  "score": 42,
+  "decision_ids": [1, 2, 3, 4, 5]
+}'
     def show
       # Stub
     end

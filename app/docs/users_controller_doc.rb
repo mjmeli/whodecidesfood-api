@@ -12,7 +12,19 @@ if Rails.env.development?
     api :GET, "/users", "Get user information for current user"
     header "Authorization", "Session authentication token for the user", :required => true
     error 401, "Unauthorized"
-    def show
+    example '{
+  "id": 1,
+  "email": "brinda@boyer.com",
+  "created_at": "2017-02-01T00:07:49.205Z",
+  "updated_at": "2017-02-01T00:07:49.205Z",
+  "auth_token": "7FAYZgr8xtQMoDdJycmz",
+  "comparison_ids": [
+    1,
+    7,
+    13
+  ]
+}'
+    def index
       # Stub
     end
 
@@ -20,6 +32,18 @@ if Rails.env.development?
     header "Authorization", "Session authentication token for the user", :required => true
     param :id, :number, :desc => "User ID", :required => true
     error 401, "Unauthorized"
+    example '{
+  "id": 1,
+  "email": "brinda@boyer.com",
+  "created_at": "2017-02-01T00:07:49.205Z",
+  "updated_at": "2017-02-01T00:07:49.205Z",
+  "auth_token": "7FAYZgr8xtQMoDdJycmz",
+  "comparison_ids": [
+    1,
+    7,
+    13
+  ]
+}'
     def show
       # Stub
     end
