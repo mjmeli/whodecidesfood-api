@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :sessions, :only => [:create, :destroy]
       resources :comparisons, :only => [:show, :index, :create, :update, :destroy] do
         resources :participants, :only => [:index, :show, :create, :update, :destroy]
+        resources :decisions, :only => [:index, :show, :create, :update, :destroy]
       end
     end
   end
