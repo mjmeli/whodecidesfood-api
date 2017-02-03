@@ -20,4 +20,18 @@ RSpec.describe Decision, type: :model do
 
     it { should belong_to :comparison }
     it { should belong_to :participant }
+
+    describe "#increment_participant_score!" do
+      it "increases the product score by 1" do
+        participant = decision.participant
+        expect{decision.increment_participant_score!}.to change{participant.score}.by(1)
+      end
+    end
+
+    describe "#decrement_participant_score!" do
+      it "decreases the product score by 1" do
+        participant = decision.participant
+        expect{decision.decrement_participant_score!}.to change{participant.score}.by(-1)
+      end
+    end
 end

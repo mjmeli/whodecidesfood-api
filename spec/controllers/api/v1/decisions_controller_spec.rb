@@ -49,8 +49,9 @@ RSpec.describe Api::V1::DecisionsController, type: :controller do
     context "when is successfully created" do
       before(:each) do
         comparison = FactoryGirl.create :comparison, owner: @user
-        participant = FactoryGirl.create :participant, comparison: comparison
-        decision_params = { meal: "Breakfast", location: "Fake Location", participant_id: participant.id }
+        @participant = FactoryGirl.create :participant, comparison: comparison
+        @original_score = @participant.score
+        decision_params = { meal: "Breakfast", location: "Fake Location", participant_id: @participant.id }
         post :create, params: { comparison_id: comparison.id, decision: decision_params }
       end
 
@@ -59,6 +60,11 @@ RSpec.describe Api::V1::DecisionsController, type: :controller do
         expect(decisions_response[:id]).to be_present
         expect(decisions_response[:meal]).to eql("Breakfast")
         expect(decisions_response[:location]).to eql("Fake Location")
+      end
+
+      it "increments the participant's score" do
+        @participant.reload
+        expect(@participant.score).to eql(@original_score + 1)
       end
 
       it { should respond_with 201 }
@@ -129,14 +135,44 @@ RSpec.describe Api::V1::DecisionsController, type: :controller do
 
       it { should respond_with 422 }
     end
+
+    context "when it successfully updates participant" do
+      before(:each) do
+        @new_participant = FactoryGirl.create :participant, comparison: @comparison
+        @original_score = @participant.score
+        @new_score = @new_participant.score
+        patch :update, params: { comparison_id: @comparison.id,
+                                 id: @decision.id,
+                                 decision: { participant_id: @new_participant.id } }
+      end
+
+      it "changes the participant id" do
+        decisions_response = json_response
+        expect(decisions_response[:participant_id]).to eql(@new_participant.id)
+      end
+
+      it "decrements the old participant's score" do
+        @participant.reload
+        expect(@participant.score).to eql(@original_score - 1)
+      end
+
+      it "increments the new participant's score" do
+        @new_participant.reload
+        expect(@new_participant.score).to eql(@new_score + 1)
+      end
+
+      it { should respond_with 200 }
+    end
   end
 
   # DESTROY
   describe "DELETE #destroy" do
     before(:each) do
-      @comparison = FactoryGirl.create :comparison, owner: @user
-      @decision = FactoryGirl.create :decision, comparison: @comparison
-      delete :destroy, params: { comparison_id: @comparison.id, id: @decision.id }
+      comparison = FactoryGirl.create :comparison, owner: @user
+      participant = FactoryGirl.create :participant, comparison: comparison
+      original_score = participant.score
+      decision = FactoryGirl.create :decision, comparison: comparison, participant_id: participant.id
+      delete :destroy, params: { comparison_id: comparison.id, id: decision.id }
     end
 
     it { should respond_with 204 }
