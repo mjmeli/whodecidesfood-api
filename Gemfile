@@ -23,6 +23,9 @@ gem 'active_model_serializers'
 # Authentication using devise
 gem 'devise'
 
+# CORS support for API access cross-domain
+gem 'rack-cors', :require => 'rack/cors'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
