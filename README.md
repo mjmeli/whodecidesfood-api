@@ -48,6 +48,11 @@ Install rails
 
     gem install rails -v 5.0.0.1
 
+Install postgres and **create a user with your login name**
+
+  sudo apt-get install postgresql postgresql-contrib
+  sudo -u postgres createuser --superuser YOUR_LOGIN_NAME
+
 Clone repo
 
     git clone https://github.com/mjmeli/whodecidesfood-api.git

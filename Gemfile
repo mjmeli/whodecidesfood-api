@@ -30,7 +30,6 @@ gem 'rack-cors', :require => 'rack/cors'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'sqlite3', '1.3.12'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   # Used for tests and for seeding
@@ -51,11 +50,12 @@ group :development do
 end
 
 group :test do
+  gem 'sqlite3', '1.3.12'
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers', '~> 3.0'
 end
 
-group :production do
+group :production, :development do
   gem 'pg', '0.18.4'
 end
 
