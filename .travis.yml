@@ -1,8 +1,6 @@
 language: ruby
 rvm:
 - 2.3.1
-env:
-- DB=sqlite
 script:
 - bundle exec rake db:test:prepare
 - bundle exec rake db:migrate:reset
