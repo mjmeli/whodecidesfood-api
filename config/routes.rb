@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         resources :participants, :only => [:index, :show, :create, :update, :destroy]
         resources :decisions, :only => [:index, :show, :create, :update, :destroy]
       end
+      resources :test, :only => [:index]
     end
   end
 
