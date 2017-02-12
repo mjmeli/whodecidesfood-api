@@ -1,4 +1,6 @@
 class Api::V1::TestController < ApplicationController
+  include TestControllerDoc
+
   def index
     render json:
     {
