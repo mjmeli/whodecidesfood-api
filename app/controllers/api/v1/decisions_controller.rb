@@ -2,7 +2,7 @@ class Api::V1::DecisionsController < ApplicationController
   before_action :authenticate_with_token!
   respond_to :json
 
-  # include ParticipantsControllerDoc
+  include DecisionsControllerDoc
 
   def index
     # Returns all decisions under the comparison id
