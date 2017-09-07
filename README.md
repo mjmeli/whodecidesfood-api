@@ -1,7 +1,7 @@
 # whodecidesfood-api
 [![Build Status](https://travis-ci.org/mjmeli/whodecidesfood-api.svg?branch=master)](https://travis-ci.org/mjmeli/whodecidesfood-api)
 
-REST API for the WhoDecidesFood application. This is a Ruby on Rails application designed to be used as a REST API and the server for the static front-end content.
+REST API for WhoDecidesFood, a web application that allows users to track who decides food as a competition. This is a Ruby on Rails application designed to be used as a REST API and the server for the static front-end content.
 
 See the [https://github.com/mjmeli/whodecidesfood-app](whodecidesfood-app) repo for the front-end.
 
