@@ -1,7 +1,9 @@
 # whodecidesfood-api
 [![Build Status](https://travis-ci.org/mjmeli/whodecidesfood-api.svg?branch=master)](https://travis-ci.org/mjmeli/whodecidesfood-api)
 
-REST API for application. README work-in-progress. API documentation coming soon.
+REST API for the WhoDecidesFood application. This is a Ruby on Rails application designed to be used as a REST API and the server for the static front-end content.
+
+See the [https://github.com/mjmeli/whodecidesfood-app](whodecidesfood-app) repo for the front-end.
 
 ## Team
 * Michael Meli
@@ -75,3 +77,13 @@ Clearing and seeding database
 
     db:migrate:reset
     db:seed
+
+## API Documentation
+
+After running the development server as described above, navigate to:
+
+    http://localhost:3000/apipie
+
+Alternatively, navigate to the production API documentation:
+
+    https://www.whodecidesfood.com/apipie
