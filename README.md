@@ -86,4 +86,4 @@ After running the development server as described above, navigate to:
 
 Alternatively, navigate to the production API documentation:
 
-    https://www.whodecidesfood.com/apipie
+    http://www.whodecidesfood.com/apipie
