@@ -1,11 +1,8 @@
 language: ruby
 rvm:
-- 2.3.1
+- 2.6.3
 script:
 - bundle exec rake db:test:prepare
 - bundle exec rake db:migrate:reset
 - bundle exec rake db:migrate
 - bundle exec rspec
-notifications:
-  slack:
-    secure: hAkdzUu2RHzS38s/rF4ZPy6NpfpxQptFVhtUcywvrhGNEKmbEHsy8pNG27/uDCgVDDLo8jbLLnfH/iIMmTmw6ssKXBPiTLccTSJxLhs883IJhUEdhKZpQk9oFr7pRsNMQr0S4vVLh/lHZVQiuYc8xMBYcEsy11265fE9VKEEizVDtutHo68Z+nKhlRilpC03cOsCNBDNd3uxRjeUYV3+P3X1fYpMIDwhV5XJaEXOTLxKVbXNBaj9tj4gab7iJeFxOgq7tgDbyK7FISAiXBlNQpvEam1rdZc9kQNXvkAJ6VNF9BjIAA3ZOI6iw/RTtrX0lpviGnArIJSUNKAn3H78pQEuljC72lo8vhlbFn7fgB1OlhGCVhxVFs0ydRSLsX5CF00l+oMTHseuAzjTzz5xC6CpDCXYisd7OD7OyD7Xe/jNm/2GZ0ZA07i4JKplO3sBwg93Pic6um653gBYlAEcefDsvNtdmIBxR7yWrBCZfN8F5hVFZKEp2RI1UGV64sgQFrXZ5+dPhNf7vYO1e0BV+ELx5aEwvWjO+3W47WWajmitMrOozDVp9afE/sx3FFWg5FInAkbYUR0tcw8bKnNQKfkhqm8zPtnpDwRJ2B/k0EQEngXLmZqsnCNXWRRvFwzirkme6k+NNwwCn4WxgIx1OkHg6j2nKolxyGkZiTu0GOc=
