@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ComparisonsController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create :user
+    @user = FactoryBot.create :user
     api_authorization_header @user.auth_token
   end
 
   # SHOW
   describe "GET #show" do
     before(:each) do
-      @comparison = FactoryGirl.create :comparison, owner: @user
+      @comparison = FactoryBot.create :comparison, owner: @user
       get :show, params: { id: @comparison.id }
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
   # INDEX
   describe "GET #index" do
     before(:each) do
-      4.times { FactoryGirl.create :comparison, owner: @user }
+      4.times { FactoryBot.create :comparison, owner: @user }
     end
 
     context "when does not receive the comparison_id parameter" do
@@ -63,7 +63,7 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
     context "when receives the comparison_id parameter" do
       before(:each) do
         original_comparison_ids = @user.comparison_ids
-        3.times { FactoryGirl.create :comparison, owner: @user }
+        3.times { FactoryBot.create :comparison, owner: @user }
         get :index, params: { comparison_ids: original_comparison_ids }
       end
 
@@ -83,7 +83,7 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
   describe "POST #create" do
     context "when is successfully created" do
       before(:each) do
-        @comparison_attributes = FactoryGirl.attributes_for :comparison
+        @comparison_attributes = FactoryBot.attributes_for :comparison
         post :create, params: { user_id: @user.id, comparison: @comparison_attributes}
       end
 
@@ -118,7 +118,7 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
   # UPDATE
   describe "PUT/PATCH #update" do
     before(:each) do
-      @comparison = FactoryGirl.create :comparison, owner: @user
+      @comparison = FactoryBot.create :comparison, owner: @user
     end
 
     context "when is successfully updated" do
@@ -158,7 +158,7 @@ RSpec.describe Api::V1::ComparisonsController, type: :controller do
   # DELETE
   describe "DELETE #destroy" do
     before(:each) do
-      @comparison = FactoryGirl.create :comparison, owner: @user
+      @comparison = FactoryBot.create :comparison, owner: @user
       delete :destroy, params: { user_id: @user.id, id: @comparison.id }
     end
 

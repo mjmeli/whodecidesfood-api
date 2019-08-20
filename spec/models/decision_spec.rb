@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Decision, type: :model do
-    let(:decision) { FactoryGirl.build :decision }
+    let(:decision) { FactoryBot.build :decision }
     subject { decision }
 
     it { should respond_to(:meal) }

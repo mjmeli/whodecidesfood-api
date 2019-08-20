@@ -10,7 +10,7 @@ describe Authenticable, :type => :controller do
 
   describe "#current_user" do
     before do
-      @user = FactoryGirl.create :user
+      @user = FactoryBot.create :user
       request.headers["Authorization"] = @user.auth_token
       allow(authentication).to receive(:request).and_return(request)
     end
@@ -22,7 +22,7 @@ describe Authenticable, :type => :controller do
 
   describe "#authenticate_with_token" do
     before do
-      @user = FactoryGirl.create :user
+      @user = FactoryBot.create :user
       allow(authentication).to receive(:current_user).and_return(nil)
       allow(authentication).to receive(:render) do |args|
         args
@@ -41,7 +41,7 @@ describe Authenticable, :type => :controller do
   describe "#user_signed_in?" do
     context "when there is a user on 'session'" do
       before do
-        @user = FactoryGirl.create :user
+        @user = FactoryBot.create :user
         allow(authentication).to receive(:current_user).and_return(@user)
       end
 
@@ -50,7 +50,7 @@ describe Authenticable, :type => :controller do
 
     context "when there is no user on 'session'" do
       before do
-        @user = FactoryGirl.create :user
+        @user = FactoryBot.create :user
         allow(authentication).to receive(:current_user).and_return(nil)
       end
 

@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ParticipantsController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create :user
+    @user = FactoryBot.create :user
     api_authorization_header @user.auth_token
   end
 
   # INDEX
   describe "GET #index" do
     before(:each) do
-      comparison = FactoryGirl.create :comparison, owner: @user
-      6.times { FactoryGirl.create :participant, comparison: comparison }
+      comparison = FactoryBot.create :comparison, owner: @user
+      6.times { FactoryBot.create :participant, comparison: comparison }
       get :index, params: { comparison_id: comparison.id }
     end
 
@@ -25,9 +25,9 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
   # SHOW
   describe "GET #show" do
     before(:each) do
-      comparison = FactoryGirl.create :comparison, owner: @user
-      4.times { FactoryGirl.create :participant, comparison: comparison }
-      @participant = FactoryGirl.create :participant, comparison: comparison
+      comparison = FactoryBot.create :comparison, owner: @user
+      4.times { FactoryBot.create :participant, comparison: comparison }
+      @participant = FactoryBot.create :participant, comparison: comparison
       get :show, params: { comparison_id: comparison.id, id: @participant.id }
     end
 
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
   describe "POST #create" do
     context "when is successfully created" do
       before(:each) do
-        comparison = FactoryGirl.create :comparison, owner: @user
+        comparison = FactoryBot.create :comparison, owner: @user
         participant_params = { name: "Fake Name" }
         post :create, params: { comparison_id: comparison.id, participant: participant_params }
       end
@@ -66,7 +66,7 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
 
     context "when is not successfully created" do
       before(:each) do
-        comparison = FactoryGirl.create :comparison, owner: @user
+        comparison = FactoryBot.create :comparison, owner: @user
         participant_params = { name: "" }
         post :create, params: { comparison_id: comparison.id, participant: participant_params }
       end
@@ -88,8 +88,8 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
   # UPDATE
   describe "PUT/PATCH #update" do
     before(:each) do
-      @comparison = FactoryGirl.create :comparison, owner: @user
-      @participant = FactoryGirl.create :participant, comparison: @comparison
+      @comparison = FactoryBot.create :comparison, owner: @user
+      @participant = FactoryBot.create :participant, comparison: @comparison
     end
 
     context "when is successfully updated" do
@@ -131,8 +131,8 @@ RSpec.describe Api::V1::ParticipantsController, type: :controller do
   # DESTROY
   describe "DELETE #destroy" do
     before(:each) do
-      @comparison = FactoryGirl.create :comparison, owner: @user
-      @participant = FactoryGirl.create :participant, comparison: @comparison
+      @comparison = FactoryBot.create :comparison, owner: @user
+      @participant = FactoryBot.create :participant, comparison: @comparison
       delete :destroy, params: { comparison_id: @comparison.id, id: @participant.id }
     end
 

@@ -16,8 +16,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # apipie on development only
-  if Rails.env.development?
-    apipie
-  end
+  # apipie generally would be off in production but having it is preferred for this tech demo
+  apipie
 end

@@ -7,10 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 def create_comparisons_for_user(user)
   3.times do
-    comparison = FactoryGirl.create :comparison, owner: user
+    comparison = FactoryBot.create :comparison, owner: user
     2.times do
-      participant = FactoryGirl.create :participant, comparison: comparison
-      5.times { FactoryGirl.create :decision, comparison: comparison, participant: participant }
+      participant = FactoryBot.create :participant, comparison: comparison
+      5.times { FactoryBot.create :decision, comparison: comparison, participant: participant }
     end
   end
 end
@@ -19,16 +19,16 @@ case Rails.env
 when "development"
   # Users with comparisons
   5.times do
-    user = FactoryGirl.create :user
+    user = FactoryBot.create :user
 
     # Create comparisons with participants
     create_comparisons_for_user(user)
   end
 
   # Users with no comparisons
-  3.times { FactoryGirl.create :user }
+  3.times { FactoryBot.create :user }
 
   # Known user
-  user = FactoryGirl.create :user, email: "foo@bar.com", password: "test123", password_confirmation: "test123"
+  user = FactoryBot.create :user, email: "foo@bar.com", password: "test123", password_confirmation: "test123"
   create_comparisons_for_user(user)
 end

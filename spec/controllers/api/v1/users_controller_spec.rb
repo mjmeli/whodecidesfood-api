@@ -5,12 +5,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   # INDEX
   describe "GET #index" do
     before(:each) do
-      4.times { FactoryGirl.create :user }
+      4.times { FactoryBot.create :user }
     end
 
     context "user is authenticated" do
       before(:each) do
-        @user = FactoryGirl.create :user
+        @user = FactoryBot.create :user
         api_authorization_header @user.auth_token
         get :index
       end
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context "user is not authenticated" do
       before(:each) do
-        @user = FactoryGirl.create :user
+        @user = FactoryBot.create :user
         get :index
       end
 
@@ -48,7 +48,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe "GET #show" do
     context "user is authenticated" do
       before(:each) do
-        @user = FactoryGirl.create :user
+        @user = FactoryBot.create :user
         api_authorization_header @user.auth_token
         get :show, params: { id: @user.id }
       end
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context "user is not authenticated" do
       before(:each) do
-        @user = FactoryGirl.create :user
+        @user = FactoryBot.create :user
         get :show, params: { id: @user.id }
       end
 
@@ -87,8 +87,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context "user is authenticated with the wrong user" do
       before(:each) do
-        @user1 = FactoryGirl.create :user
-        @user2 = FactoryGirl.create :user
+        @user1 = FactoryBot.create :user
+        @user2 = FactoryBot.create :user
         api_authorization_header @user1.auth_token
         get :show, params: { id: @user2.id }
       end
@@ -111,7 +111,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe "POST #create" do
     context "when is successfully created" do
       before(:each) do
-        @user_attributes = FactoryGirl.attributes_for :user
+        @user_attributes = FactoryBot.attributes_for :user
         post :create, params: { user: @user_attributes }
       end
 
@@ -148,7 +148,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe "PUT/PATCH #update" do
 
     before(:each) do
-      @user = FactoryGirl.create :user
+      @user = FactoryBot.create :user
       api_authorization_header @user.auth_token
     end
 
@@ -187,7 +187,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe "DELETE #destroy" do
     before(:each) do
-      @user = FactoryGirl.create :user
+      @user = FactoryBot.create :user
       api_authorization_header @user.auth_token
       delete :destroy, params: { id: @user.id }
     end

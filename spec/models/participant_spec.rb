@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Participant, type: :model do
-  let(:participant) { FactoryGirl.build :participant }
+  let(:participant) { FactoryBot.build :participant }
   subject { participant }
 
   it { should respond_to(:name) }

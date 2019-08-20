@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "~> 2.3.0"
+ruby ">= 2.3.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
@@ -38,7 +38,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   # Used for tests and for seeding
   gem 'ffaker'
-  gem "factory_girl_rails"
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -53,7 +53,7 @@ end
 group :test do
   gem 'sqlite3', '1.3.12'
   gem 'rspec-rails', '~> 3.5'
-  gem 'shoulda-matchers', '~> 3.0'
+  gem 'shoulda-matchers', '~> 4.0'
 end
 
 group :production, :development do

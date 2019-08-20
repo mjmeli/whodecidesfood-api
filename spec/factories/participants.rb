@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :participant do
     comparison
     name { FFaker::Name.name }

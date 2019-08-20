@@ -18,9 +18,9 @@ Install git
 
 Install ruby dependencies
 
-    sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
+    sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev libpq-dev ruby-rspec-core
 
-Install ruby using rbenv (just copy and paste these commands)
+Install ruby using rbenv (copy and paste these commands, except potentially updating the version of ruby)
 
     cd
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
@@ -32,8 +32,8 @@ Install ruby using rbenv (just copy and paste these commands)
     echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
     exec $SHELL
 
-    rbenv install 2.3.1
-    rbenv global 2.3.1
+    rbenv install 2.6.3
+    rbenv global 2.6.3
     ruby -v
 
 Install bundler
@@ -41,9 +41,9 @@ Install bundler
     gem install bundler
     rbenv rehash
 
-Install a JavaScript runtime, i.e. NodeJS
+Install a JavaScript runtime, i.e. NodeJS. Use the latest version in the `curl` below.
 
-    curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
     sudo apt-get install -y nodejs
 
 Install rails
@@ -52,8 +52,8 @@ Install rails
 
 Install postgres and **create a user with your login name**
 
-  sudo apt-get install postgresql postgresql-contrib
-  sudo -u postgres createuser --superuser YOUR_LOGIN_NAME
+    sudo apt-get install postgresql postgresql-contrib
+    sudo -u postgres createuser --superuser YOUR_LOGIN_NAME
 
 Clone repo
 
@@ -75,8 +75,8 @@ To run tests
 
 Clearing and seeding database
 
-    db:migrate:reset
-    db:seed
+    rails db:migrate:reset
+    rails db:seed
 
 ## API Documentation
 

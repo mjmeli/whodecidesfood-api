@@ -4,7 +4,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
   describe "POST #create" do
 
    before(:each) do
-    @user = FactoryGirl.create :user
+    @user = FactoryBot.create :user
    end
 
     context "when the credentials are correct" do
@@ -40,7 +40,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
   describe "DELETE #destroy" do
 
     before(:each) do
-      @user = FactoryGirl.create :user
+      @user = FactoryBot.create :user
       sign_in @user
       delete :destroy, params: { id: @user.auth_token }
     end
