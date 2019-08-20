@@ -56,6 +56,7 @@ module UsersControllerDoc extend Apipie::DSL::Concern
 
   api :PATCH, "/users/:id", "Update an existing user"
   header "Authorization", "Session authentication token for the user", :required => true
+  param :id, :number, :desc => "User ID", :required => true
   param_group :user
   error 401, "Unauthorized"
   error 422, "Unable to update the user (probably due to validation issues)"

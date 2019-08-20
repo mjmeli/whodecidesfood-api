@@ -8,8 +8,9 @@ module DecisionsControllerDoc extend Apipie::DSL::Concern
     end
   end
 
-  api :GET, "/comparisons/:id/decisions/", "Get all decisions information for a comparison"
+  api :GET, "/comparisons/:comparison_id/decisions/", "Get all decisions information for a comparison"
   header "Authorization", "Session authentication token for the user", :required => true
+  param :comparison_id, :number, :desc => "Comparison ID", :required => true
   error 401, "Unauthorized"
   example '[{
 "id": 1,
@@ -32,7 +33,7 @@ module DecisionsControllerDoc extend Apipie::DSL::Concern
 
   api :GET, "/comparisons/:comparison_id/decisions/:id", "Get a decision information for a comparison by ID"
   header "Authorization", "Session authentication token for the user", :required => true
-  param :comparison_id, :number, :desc => "Comparison ID"
+  param :comparison_id, :number, :desc => "Comparison ID", :required => true
   param :id, :number, :desc => "Decision ID", :required => true
   error 401, "Unauthorized"
   error 404, "Decision does not exist"
@@ -49,7 +50,7 @@ module DecisionsControllerDoc extend Apipie::DSL::Concern
 
   api :POST, "/comparisons/:comparison_id/decisions", "Create a new decision for a comparison"
   header "Authorization", "Session authentication token for the user", :required => true
-  param :comparison_id, :number, :desc => "Comparison ID"
+  param :comparison_id, :number, :desc => "Comparison ID", :required => true
   param_group :decision
   error 401, "Unauthorized"
   error 422, "Unable to create the decision (probably due to validation issues)"
@@ -59,8 +60,9 @@ module DecisionsControllerDoc extend Apipie::DSL::Concern
 
   api :PATCH, "/comparisons/:comparison_id/decisions/:id", "Update an existing decision for a comparison"
   header "Authorization", "Session authentication token for the user", :required => true
-  param :comparison_id, :number, :desc => "Comparison ID"
-  param_group :decision
+  param :comparison_id, :number, :desc => "Comparison ID", :required => true
+  param :id, :number, :desc => "Decision ID", :required => true
+  param_group :decision, :required => true
   error 401, "Unauthorized"
   error 422, "Unable to update the decision (probably due to validation issues)"
   def update
@@ -69,7 +71,7 @@ module DecisionsControllerDoc extend Apipie::DSL::Concern
 
   api :DELETE, "/comparisons/:comparison_id/decisions/:id", "Delete an existing decision for a comparison"
   header "Authorization", "Session authentication token for the user", :required => true
-  param :comparison_id, :number, :desc => "Comparison ID"
+  param :comparison_id, :number, :desc => "Comparison ID", :required => true
   param :id, :number, :desc => "Decision ID", :required => true
   error 401, "Unauthorized"
   def destroy

@@ -6,8 +6,9 @@ module ParticipantsControllerDoc extend Apipie::DSL::Concern
     end
   end
 
-  api :GET, "/comparisons/:id/participants/", "Get all participants information for a comparison"
+  api :GET, "/comparisons/:comparison_id/participants/", "Get all participants information for a comparison"
   header "Authorization", "Session authentication token for the user", :required => true
+  param :comparison_id, :number, :desc => "Comparison ID", :required => true
   error 401, "Unauthorized"
   example '[{
 "id": 1,
@@ -26,7 +27,7 @@ module ParticipantsControllerDoc extend Apipie::DSL::Concern
 
   api :GET, "/comparisons/:comparison_id/participants/:id", "Get a participant information for a comparison by ID"
   header "Authorization", "Session authentication token for the user", :required => true
-  param :comparison_id, :number, :desc => "Comparison ID"
+  param :comparison_id, :number, :desc => "Comparison ID", :required => true
   param :id, :number, :desc => "Participant ID", :required => true
   error 401, "Unauthorized"
   error 404, "Participant does not exist"
@@ -42,7 +43,7 @@ module ParticipantsControllerDoc extend Apipie::DSL::Concern
 
   api :POST, "/comparisons/:comparison_id/participants", "Create a new participant for a comparison"
   header "Authorization", "Session authentication token for the user", :required => true
-  param :comparison_id, :number, :desc => "Comparison ID"
+  param :comparison_id, :number, :desc => "Comparison ID", :required => true
   param_group :participant
   error 401, "Unauthorized"
   error 422, "Unable to create the participant (probably due to validation issues)"
@@ -52,7 +53,8 @@ module ParticipantsControllerDoc extend Apipie::DSL::Concern
 
   api :PATCH, "/comparisons/:comparison_id/participants/:id", "Update an existing participant for a comparison"
   header "Authorization", "Session authentication token for the user", :required => true
-  param :comparison_id, :number, :desc => "Comparison ID"
+  param :comparison_id, :number, :desc => "Comparison ID", :required => true
+  param :id, :number, :desc => "User ID", :required => true
   param_group :participant
   error 401, "Unauthorized"
   error 422, "Unable to update the participant (probably due to validation issues)"

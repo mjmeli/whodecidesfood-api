@@ -1,0 +1,942 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "whodecidesfood-api (params in:formData)",
+    "description": "\n<p>Another API description</p>\n",
+    "version": "1.0",
+    "x-copyright": null
+  },
+  "basePath": "/api",
+  "consumes": [
+    "application/x-www-form-urlencoded",
+    "multipart/form-data"
+  ],
+  "paths": {
+    "/comparisons": {
+      "get": {
+        "tags": [
+          "comparisons"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_comparisons",
+        "summary": "Get all comparisons for the authenticated user",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": ""
+      },
+      "post": {
+        "tags": [
+          "comparisons"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_comparisons",
+        "summary": "Create a new comparison for the current user",
+        "parameters": [
+          {
+            "name": "comparison[title]",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "Title for the comparison"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unable to create the comparison (probably due to validation issues)"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/comparisons/{id}": {
+      "get": {
+        "tags": [
+          "comparisons"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_comparisons_id",
+        "summary": "Get comparison information by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Comparison does not exist"
+          }
+        },
+        "description": ""
+      },
+      "patch": {
+        "tags": [
+          "comparisons"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "patch_comparisons_id",
+        "summary": "Update an existing comparison",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "comparison[title]",
+            "type": "string",
+            "in": "formData",
+            "description": "Title for the comparison"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unable to update the comparison (probably due to validation issues)"
+          }
+        },
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "comparisons"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "delete_comparisons_id",
+        "summary": "Delete an existing comparison",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/comparisons/{comparison_id}/decisions": {
+      "get": {
+        "tags": [
+          "decisions"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_comparisons_comparison_id_decisions",
+        "summary": "Get all decisions information for a comparison",
+        "parameters": [
+          {
+            "name": "comparison_id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": ""
+      },
+      "post": {
+        "tags": [
+          "decisions"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_comparisons_comparison_id_decisions",
+        "summary": "Create a new decision for a comparison",
+        "parameters": [
+          {
+            "name": "decision[participant_id]",
+            "type": "number",
+            "in": "formData",
+            "required": true,
+            "description": "Participant ID of the person making the decision"
+          },
+          {
+            "name": "decision[location]",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "Location of meal (i.e. restaurant)"
+          },
+          {
+            "name": "decision[meal]",
+            "type": "string",
+            "enum": [
+              "Breakfast",
+              "Lunch",
+              "Dinner",
+              "Snack"
+            ],
+            "in": "formData",
+            "required": true,
+            "description": "Meal selection"
+          },
+          {
+            "name": "comparison_id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unable to create the decision (probably due to validation issues)"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/comparisons/{comparison_id}/decisions/{id}": {
+      "get": {
+        "tags": [
+          "decisions"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_comparisons_comparison_id_decisions_id",
+        "summary": "Get a decision information for a comparison by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Decision ID"
+          },
+          {
+            "name": "comparison_id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Decision does not exist"
+          }
+        },
+        "description": ""
+      },
+      "patch": {
+        "tags": [
+          "decisions"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "patch_comparisons_comparison_id_decisions_id",
+        "summary": "Update an existing decision for a comparison",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Decision ID"
+          },
+          {
+            "name": "comparison_id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "decision[meal]",
+            "type": "string",
+            "enum": [
+              "Breakfast",
+              "Lunch",
+              "Dinner",
+              "Snack"
+            ],
+            "in": "formData",
+            "description": "Meal selection"
+          },
+          {
+            "name": "decision[location]",
+            "type": "string",
+            "in": "formData",
+            "description": "Location of meal (i.e. restaurant)"
+          },
+          {
+            "name": "decision[participant_id]",
+            "type": "number",
+            "in": "formData",
+            "description": "Participant ID of the person making the decision"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unable to update the decision (probably due to validation issues)"
+          }
+        },
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "decisions"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "delete_comparisons_comparison_id_decisions_id",
+        "summary": "Delete an existing decision for a comparison",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Decision ID"
+          },
+          {
+            "name": "comparison_id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/comparisons/{comparison_id}/participants": {
+      "get": {
+        "tags": [
+          "participants"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_comparisons_comparison_id_participants",
+        "summary": "Get all participants information for a comparison",
+        "parameters": [
+          {
+            "name": "comparison_id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": ""
+      },
+      "post": {
+        "tags": [
+          "participants"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_comparisons_comparison_id_participants",
+        "summary": "Create a new participant for a comparison",
+        "parameters": [
+          {
+            "name": "participant[name]",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "Name for the participant"
+          },
+          {
+            "name": "comparison_id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unable to create the participant (probably due to validation issues)"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/comparisons/{comparison_id}/participants/{id}": {
+      "get": {
+        "tags": [
+          "participants"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_comparisons_comparison_id_participants_id",
+        "summary": "Get a participant information for a comparison by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Participant ID"
+          },
+          {
+            "name": "comparison_id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Participant does not exist"
+          }
+        },
+        "description": ""
+      },
+      "patch": {
+        "tags": [
+          "participants"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "patch_comparisons_comparison_id_participants_id",
+        "summary": "Update an existing participant for a comparison",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "User ID"
+          },
+          {
+            "name": "comparison_id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "participant[name]",
+            "type": "string",
+            "in": "formData",
+            "description": "Name for the participant"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unable to update the participant (probably due to validation issues)"
+          }
+        },
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "participants"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "delete_comparisons_comparison_id_participants_id",
+        "summary": "Delete an existing participant for a comparison",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "User ID"
+          },
+          {
+            "name": "comparison_id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Comparison ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/sessions": {
+      "post": {
+        "tags": [
+          "sessions"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_sessions",
+        "summary": "Create a new session for user (get authentication token)",
+        "parameters": [
+          {
+            "name": "session[password]",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "User's password"
+          },
+          {
+            "name": "session[email]",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "User's email address"
+          }
+        ],
+        "responses": {
+          "422": {
+            "description": "Unable to create new session due to invalid email or password"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/sessions/{id}": {
+      "delete": {
+        "tags": [
+          "sessions"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "delete_sessions_id",
+        "summary": "Delete a session by authentication token",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "The authentication token being invalidated"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/test": {
+      "get": {
+        "tags": [
+          "test"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_test",
+        "summary": "Test user's connection and authentication",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_users",
+        "summary": "Get user information for current user",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": ""
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_users",
+        "summary": "Create a new user",
+        "parameters": [
+          {
+            "name": "user[password_confirmation]",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "User's password confirmation"
+          },
+          {
+            "name": "user[password]",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "User's password"
+          },
+          {
+            "name": "user[email]",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "User's email address"
+          }
+        ],
+        "responses": {
+          "422": {
+            "description": "Unable to create the user (probably due to validation issues)"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_users_id",
+        "summary": "Get user information by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "User ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": ""
+      },
+      "patch": {
+        "tags": [
+          "users"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "patch_users_id",
+        "summary": "Update an existing user",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "User ID"
+          },
+          {
+            "name": "user[email]",
+            "type": "string",
+            "in": "formData",
+            "description": "User's email address"
+          },
+          {
+            "name": "user[password]",
+            "type": "string",
+            "in": "formData",
+            "description": "User's password"
+          },
+          {
+            "name": "user[password_confirmation]",
+            "type": "string",
+            "in": "formData",
+            "description": "User's password confirmation"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unable to update the user (probably due to validation issues)"
+          }
+        },
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "delete_users_id",
+        "summary": "Delete an existing user",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "User ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Session authentication token for the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "description": ""
+      }
+    }
+  },
+  "definitions": {
+  },
+  "tags": [
+
+  ],
+  "host": "localhost:3000"
+}

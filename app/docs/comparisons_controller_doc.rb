@@ -64,7 +64,7 @@ module ComparisonsControllerDoc extend Apipie::DSL::Concern
 
   api :POST, "/comparisons", "Create a new comparison for the current user"
   header "Authorization", "Session authentication token for the user", :required => true
-  param_group :comparison
+  param_group :comparison, :required => true
   error 401, "Unauthorized"
   error 422, "Unable to create the comparison (probably due to validation issues)"
   def create
@@ -73,7 +73,8 @@ module ComparisonsControllerDoc extend Apipie::DSL::Concern
 
   api :PATCH, "/comparisons/:id", "Update an existing comparison"
   header "Authorization", "Session authentication token for the user", :required => true
-  param_group :comparison
+  param :id, :number, :desc => "Comparison ID", :required => true
+  param_group :comparison, :required => true
   error 401, "Unauthorized"
   error 422, "Unable to update the comparison (probably due to validation issues)"
   def update
