@@ -1,6 +1,8 @@
 language: ruby
 rvm:
 - 2.6.3
+services:
+- postgresql
 script:
 - bundle exec rake db:test:prepare
 - bundle exec rake db:migrate:reset
